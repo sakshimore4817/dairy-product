@@ -1,0 +1,104 @@
+{% extends 'app/base.html' %}
+{% load static %}
+{% block title %} Profile {% endblock title %}
+
+{% block usernav %}
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href="/">Home</a>
+</li>
+
+<li class="nav-item dropdown mx-2">
+  <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Products
+  </a>
+
+  <ul class="dropdown-menu">
+    <li><a class="dropdown-item" href="{% url 'category' 'ML' %}">Milk</a></li>
+    <li><a class="dropdown-item" href="{% url 'category' 'CR' %}">Curd</a></li>
+    <li><a class="dropdown-item" href="{% url 'category' 'MS' %}">Milkshake</a></li>
+    <li><a class="dropdown-item" href="{% url 'category' 'LS' %}">Lassi</a></li>
+    <li><a class="dropdown-item" href="{% url 'category' 'GH' %}">Ghee</a></li>
+    <li><a class="dropdown-item" href="{% url 'category' 'PN' %}">Paneer</a></li>
+    <li><a class="dropdown-item" href="{% url 'category' 'CZ' %}">Cheese</a></li>
+    <li><a class="dropdown-item" href="{% url 'category' 'Ic' %}">Ice-Cream</a></li>
+    
+  </ul>
+</li>
+<li class="nav-item">
+  <a class="nav-link text-white" href="{% url 'about'  %}">About Us</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link text-white" href="{% url 'contact'  %}">Contact Us</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+</li>
+</ul>
+<form class="d-flex">
+<input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+<button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+</div>
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+<li class="nav-item dropdown mx-2">
+  <a class="nav-link dropdown-toggle text-white" href="#" id="profileDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+      Sakshi
+
+  </a>
+  <ul class="dropdown-menu " aria-labelledby="profileDropdown" >
+      <li><a class="dropdown-item" href="{% url 'profile' %}">Profile</a></li>
+      <li><a class="dropdown-item" href="#">Orders</a></li>
+      <li><a class="dropdown-item" href="{% url 'passwordchange' %}">Change Password</a></li>
+      <li><a class="dropdown-item" href="/logout/">Logout</a></li>
+  </ul>
+
+</li>
+<li class="nav-item mx-2">
+  <a href="#" class="nav-link text-white"><span class="badge bg-danger">{% if totalitem > 0 %}{{totalitem}}{% endif %}</span> Cart </a>
+</li>
+<li class="nav-item mx-2">
+  <a href="#" class="nav-link text-white">Wishlist 4</a>
+</li>
+{% endblock %}
+
+
+{% block main-content %}
+<div class="container my-5">
+    <div class="row">
+        <h3> Welcome <span class="text-capitalize">{{request.user}}</span></h3>
+    
+        <div class="col-sm-2 border-end">
+            <ul class="list-unstyled">
+                <li class="d-grid"><a href="{% url 'profile' %}" class="btn btn-primary">Profile</a></li>
+                <li class="d-grid"><a href="{% url 'address' %}" class="btn ">Address</a></li>
+            </ul>
+        </div>
+        <div class="col-sm-8 offset-sm-1">
+            <form action="" method="post">
+                {% csrf_token %}
+                {% for fm in form %}
+                {{fm.label_tag}} {{fm}} <small class="text-danger">{{fm.errors | striptags}}</small><br>
+                {% endfor %}
+                <div class="col-12 mt-3">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+                {% if form.non_field_errors %}
+                    {% for error in form.non_field_errors %}
+                    <p class="alert alert-danger my-3">{{error}}</p>
+                    {% endfor %}
+                {% endif %}
+                {% if messages %}
+                    {% for msg in messages %}
+                    <div class="alert alert-{{msg.tags}}" role="alert">
+                        {{msg}}
+                    </div>
+                    {% endfor %}
+                {% endif %}
+
+            </form>
+            </div>
+    </div>
+</div>
+
+
+{% endblock main-content %}
