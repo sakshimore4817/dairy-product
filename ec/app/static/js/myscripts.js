@@ -66,7 +66,7 @@ $('.plus-wishlist').click(function(){
         },
         success:function(data){
             //alert(data.message)
-            window.location.href = 'http://127.0.0.1:8000/product-detail/3'
+            window.location.href = 'http://127.0.0.1:8000/product-detail/{id}'
 
         }
     })
@@ -82,11 +82,12 @@ $('.minus-wishlist').click(function(){
         },
         success:function(data){
             //alert(data.message)
-            window.location.href = 'http://127.0.0.1:8000/product-detail/3'
+            window.location.href = 'http://127.0.0.1:8000/product-detail/{id}'
 
         }
     })
 })
+
 
 
 
