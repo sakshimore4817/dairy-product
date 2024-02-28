@@ -15,6 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
+# from django.contrib import admin
 from django.urls import path
 from . import views
 from app.views import CheckoutView
@@ -45,6 +46,7 @@ urlpatterns = [
     path('orders/',views.orders,name='orders'),
     path('pluswishlist/',views.plus_wishlist),
     path('minuswishlist/',views.minus_wishlist),
+    path('search/',views.search,name='search'),
 
     #login authentication
     path('registration/', views.CustomerRegistrationView.as_view(), name='customerregistration'),
@@ -66,3 +68,8 @@ urlpatterns = [
 
 
 ]+static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)
+
+
+# admin.site.site_header = 'DAILY DAIRY'
+# admin.site.site_title = 'DAILY DAIRY'
+# admin.site.site_index_title = ' WELCOME TO DAILY DAIRY'
